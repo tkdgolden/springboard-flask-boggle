@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="h1">Boggle</h1>
+</div>
+
+<div class="container" hidden="true" id="board">
+    <div class="row">
+        <div class="col-6">
+            <table class="table">
+                {% for each in board %}
+                    <tr>
+                    {% for e in each %}
+                        <td>
+                            {{ e }}
+                        </td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-6">
+            <h3 class="h3" id="timer"></h3>
+            <h3 class="h3" id="score">Score: {{ session["score"] }}</h3>
+            <ul id="words"></ul>
+        </div>
+    </div>
+</div>
+
+<div class="container" hidden="true" id="results">
+    <form>
+        <label for="guess">Guess a word:</label>
+        <input type="text" name="guess" id="guess" autocomplete="off">
+        <input class="btn btn-primary" type="submit" id="submit">
+    </form>
+</div>
+
+<div class="container">
+    <button class="btn btn-lg btn-primary" id="new">New Game</button>
+    <h2 class="h2">High Score: <span id="high_score">{{ session["high_score"] }}</span></h2>
+    <h3 class="h3">Games Played: <span id="games_played">{{ session["games_played"] }}</span></h3>
+</div>
+
+
+
+{% endblock %}
