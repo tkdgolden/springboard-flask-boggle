@@ -14,10 +14,15 @@ boggle_game = Boggle()
 def index(): 
     session["high_score"] = 0
     session["games_played"] = 0
+    return render_template("index.html")
+
+@app.route("/new")
+def new():
+    print("here")
     session["board"] = boggle_game.make_board()
     session["score"] = 0
     session["guesses"] = []
-    return render_template("index.html", board=session["board"])
+    return render_template("game.html", board=session["board"])
 
 @app.route("/check")
 def check():

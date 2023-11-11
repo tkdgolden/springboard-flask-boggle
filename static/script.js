@@ -23,9 +23,13 @@ $submitButton.on("click", async function(evt){
     }
 })
 
-$newGameButton.on("click", startGame)
+// $newGameButton.on("click", startGame)
 
-function startGame() {
+// function startGame() {
+
+// }
+
+$(function() {
     setTimeout(async function(){
         clearInterval(intervalId)
         $guessInput.attr("disabled", 'disabled')
@@ -39,6 +43,7 @@ function startGame() {
         $gamesPlayed.text(newLeaderboard.data["games_played"])
         $highScore.text(newLeaderboard.data["high_score"])
     }, 60000)
+    
     $board.removeAttr("hidden")
     $results.removeAttr("hidden")
     $guessInput.removeAttr("disabled")
@@ -50,4 +55,4 @@ function startGame() {
         time -= 1
         $timer.text(time)
     }, 1000)
-}
+})
