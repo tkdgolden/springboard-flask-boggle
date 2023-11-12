@@ -15,6 +15,7 @@ $submitButton.on("click", async function(evt){
     $guessInput[0].value = ""
 
     let result = await axios.get("/check", {params: {guess: guess}})
+    console.log(result)
     if (result.data["result"] == "ok"){
         $words.append(`<ul>${guess}</ul>`)
         $score.text(`Score: ${result.data["score"]}`)

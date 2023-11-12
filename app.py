@@ -18,7 +18,6 @@ def index():
 
 @app.route("/new")
 def new():
-    print("here")
     session["board"] = boggle_game.make_board()
     session["score"] = 0
     session["guesses"] = []
@@ -28,16 +27,21 @@ def new():
 def check():
     guess = request.args.get("guess")
     response = boggle_game.check_valid_word(session["board"], guess)
+    guesses = session["guesses"]
     if response == "ok":
-        if guess not in session["guesses"]:
-            guesses = session["guesses"]
-            guesses.append(guess)
-            session["guesses"] = guesses
-            session["score"] += len(guess)
-        else:
-            response = "duplicate-word"
+        response = no_duplicate(guess, guesses)
     json_response = jsonify({"result": response, "score": session["score"]})
     return json_response
+
+def no_duplicate(gues, gueses):
+    gues = gues.lower()
+    if gues not in gueses:
+        gueses.append(gues)
+        session["guesses"] = gueses
+        session["score"] += len(gues)
+        return "ok"
+    else:
+        return "duplicate-word"
 
 @app.route("/update_leaderboard")
 def update_leaderboard():
